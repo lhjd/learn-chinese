@@ -8,6 +8,7 @@ class StrokeLearningApp {
         this.isQuizMode = false;
         this.strokeCount = 0;
         this.mistakeCount = 0;
+        this.outlineVisible = false;
 
         this.initElements();
         this.initEventListeners();
@@ -146,7 +147,7 @@ class StrokeLearningApp {
                 width: 280,
                 height: 280,
                 padding: 10,
-                showOutline: true,
+                showOutline: !this.isQuizMode,
                 showCharacter: !this.isQuizMode,
                 strokeAnimationSpeed: 1,
                 delayBetweenStrokes: 200,
@@ -192,10 +193,12 @@ class StrokeLearningApp {
 
     setPracticeMode() {
         this.isQuizMode = true;
+        this.outlineVisible = false;
         this.practiceModeBtn.classList.add('active');
         this.viewModeBtn.classList.remove('active');
         this.animateBtn.disabled = true;
         this.hintBtn.disabled = false;
+        this.hintBtn.textContent = 'Show Hint';
         this.animateBtn.textContent = 'Play Animation';
 
         this.showFeedback('Draw the character stroke by stroke', 'info');
@@ -242,13 +245,24 @@ class StrokeLearningApp {
     showHint() {
         if (!this.writer || !this.isQuizMode) return;
 
-        // Cancel current quiz and show one stroke
-        this.writer.showOutline();
-        this.showFeedback('Hint shown - outline revealed', 'info');
+        // Toggle outline visibility
+        if (this.outlineVisible) {
+            this.writer.hideOutline();
+            this.outlineVisible = false;
+            this.hintBtn.textContent = 'Show Hint';
+            this.showFeedback('Outline hidden', 'info');
+        } else {
+            this.writer.showOutline();
+            this.outlineVisible = true;
+            this.hintBtn.textContent = 'Hide Hint';
+            this.showFeedback('Outline shown - trace the character!', 'info');
+        }
     }
 
     reset() {
         this.mistakeCount = 0;
+        this.outlineVisible = false;
+        this.hintBtn.textContent = 'Show Hint';
         this.feedback.textContent = '';
         this.feedback.className = 'feedback';
 

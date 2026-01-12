@@ -8,7 +8,7 @@ class StrokeLearningApp {
         this.isQuizMode = false;
         this.strokeCount = 0;
         this.mistakeCount = 0;
-        this.outlineVisible = false;
+        this.outlineVisible = true;
 
         this.initElements();
         this.initEventListeners();
@@ -147,7 +147,7 @@ class StrokeLearningApp {
                 width: 280,
                 height: 280,
                 padding: 10,
-                showOutline: !this.isQuizMode,
+                showOutline: true,
                 showCharacter: !this.isQuizMode,
                 strokeAnimationSpeed: 1,
                 delayBetweenStrokes: 200,
@@ -193,12 +193,12 @@ class StrokeLearningApp {
 
     setPracticeMode() {
         this.isQuizMode = true;
-        this.outlineVisible = false;
+        this.outlineVisible = true;
         this.practiceModeBtn.classList.add('active');
         this.viewModeBtn.classList.remove('active');
         this.animateBtn.disabled = true;
         this.hintBtn.disabled = false;
-        this.hintBtn.textContent = 'Show Hint';
+        this.hintBtn.textContent = 'Hide Hint';
         this.animateBtn.textContent = 'Play Animation';
 
         this.showFeedback('Draw the character stroke by stroke', 'info');
@@ -261,8 +261,8 @@ class StrokeLearningApp {
 
     reset() {
         this.mistakeCount = 0;
-        this.outlineVisible = false;
-        this.hintBtn.textContent = 'Show Hint';
+        this.outlineVisible = true;
+        this.hintBtn.textContent = 'Hide Hint';
         this.feedback.textContent = '';
         this.feedback.className = 'feedback';
 

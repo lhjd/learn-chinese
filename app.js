@@ -141,11 +141,14 @@ class StrokeLearningApp {
         this.feedback.textContent = '';
         this.feedback.className = 'feedback';
 
-        // Create new writer
+        // Create new writer with responsive size
+        const containerSize = Math.min(this.writerTarget.clientWidth, this.writerTarget.clientHeight) || 280;
+        const writerSize = containerSize - 20; // Account for padding
+
         try {
             this.writer = HanziWriter.create(this.writerTarget, char, {
-                width: 280,
-                height: 280,
+                width: writerSize,
+                height: writerSize,
                 padding: 10,
                 showOutline: true,
                 showCharacter: !this.isQuizMode,
